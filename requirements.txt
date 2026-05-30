@@ -1,0 +1,14 @@
+bcrypt==5.0.0
+black==26.5.1
+click==8.4.1
+joblib==1.5.3
+mpi4py==4.1.2
+mypy_extensions==1.1.0
+nltk==3.9.4
+numpy==2.4.6
+packaging==26.2
+pathspec==1.1.1
+platformdirs==4.10.0
+pytokens==0.4.1
+regex==2026.5.9
+tqdm==4.67.3
