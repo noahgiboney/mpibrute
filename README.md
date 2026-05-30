@@ -13,6 +13,8 @@ The amount of parallel work that can be done depends on the values set in `mpibr
 MPI is used to communicate between the ranks, for things such as broadcasting the word list, and notify other ranks when one has found the password.
 
 `mpibrute` is launched with as a Slurm batch command.
-`sbatch mpibrute.sh`
+```
+sbatch mpibrute.sh
+```
 
 ## Results
