@@ -3,6 +3,8 @@
 # Run with `sbatch mpibrute.sh` on a cluster with slurm and openmpi installed.
 
 #SBATCH --job-name=mpibrute
+#SBATCH --output=mpibrute_%j.log
+#SBATCH --error=mpibrute_error_%j.log
 #SBATCH --partition=<partition_name>
 #SBATCH --nodes=<nodes>
 #SBATCH --ntasks-per-node=<tasks_per_node>

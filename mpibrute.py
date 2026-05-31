@@ -1,7 +1,5 @@
 import random
 import sys
-import logging
-from pathlib import Path
 
 import bcrypt
 import nltk
@@ -9,18 +7,6 @@ import numpy as np
 from mpi4py import MPI
 
 EXIT_REQUEST = 99
-
-log_path = Path("~/giboneyn/mpibrute.log").expanduser()
-
-log_path.parent.mkdir(parents=True, exist_ok=True)
-
-logging.basicConfig(
-    filename=str(log_path),
-    filemode="a",
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    level=logging.INFO,
-)
-
 
 def chunk_word_list(num_ranks):
     words = [word for word in nltk.corpus.words.words() if 6 <= len(word) <= 10]
@@ -55,11 +41,11 @@ def main():
     num_ranks = comm.Get_size()
 
     if num_ranks < 2:
-        logging.error("ERROR: Must run with atlest two ranks")
+        print("ERROR: Must run with atlest two ranks")
         sys.exit(1)
 
     if rank == 0:
-        logging.info(f"Running with {num_ranks} ranks")
+        print(f"Running with {num_ranks} ranks")
         word_chunks = chunk_word_list(num_ranks)
     else:
         word_chunks = None
@@ -92,7 +78,7 @@ def main():
                             comm.isend(None, dest=worker_rank, tag=EXIT_REQUEST)
 
                     end = MPI.Wtime()
-                    logging.info(f"{name}: {word} {end - start:.2f}s")
+                    print(f"{name}: {word} {end - start:.2f}s")
                     break
 
         # Wait for all ranks to finish before next iteration
