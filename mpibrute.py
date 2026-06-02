@@ -2,17 +2,17 @@ import random
 import sys
 
 import bcrypt
-import nltk
 import numpy as np
 from mpi4py import MPI
 
 EXIT_REQUEST = 99
 
 def chunk_word_list(num_ranks):
-    words = [word for word in nltk.corpus.words.words() if 6 <= len(word) <= 10]
-    random.shuffle(words)
+    with open("words.txt", "r") as file:
+        words = [line.strip() for line in file]
 
     # Chunk list of words based on the number of ranks
+    random.shuffle(words)
     chunks = np.array_split(words, max(num_ranks - 1, 1))
     return [chunk.tolist() for chunk in chunks]
 
