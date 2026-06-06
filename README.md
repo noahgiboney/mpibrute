@@ -19,9 +19,24 @@ sbatch mpibrute.sh
 
 ## Results
 
-Result of running `mpibrute` on an HPC cluster with MPI, launched with slurm.
+Result of running `mpibrute` on an HPC cluster with MPI installed, launched with slurm.
 ```
-
+Running with 1200 ranks
+Bilbo: welcome 0.53s
+Gandalf: wizard 0.36s
+Thorin: diamond 0.51s
+Fili: desire 1.13s
+Kili: ossify 2.64s
+Balin: hangout 4.71s
+Dwalin: drossy 4.56s
+Oin: ispaghul 3.70s
+Gloin: oversave 4.19s
+Dori: indoxylic 3.57s
+Nori: swagsman 9.11s
+Ori: airway 14.25s
+Bifur: corrosible 10.29s
+Bofur: libellate 3.56s
+Durin: purrone 44.13s
 ```
 
 Result of running the simulation on an m3 macbook pro using python concurrenty (no MPI & Slurm).
