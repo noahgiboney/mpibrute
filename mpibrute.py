@@ -1,11 +1,22 @@
+import ctypes
+import ctypes.util
+import hmac
 import random
 import sys
 
-import bcrypt
 import numpy as np
 from mpi4py import MPI
 
 EXIT_REQUEST = 99
+
+_libcrypt_name = ctypes.util.find_library("crypt")
+_libcrypt = ctypes.CDLL(_libcrypt_name)
+_libcrypt.crypt.restype = ctypes.c_char_p
+_libcrypt.crypt.argtypes = [ctypes.c_char_p, ctypes.c_char_p]
+
+def _crypt(word, salt):
+    reuslt = _libcrypt.crypt(word.encode("utf-8"), salt.encode("utf-8"))
+    return reuslt.decode("utf-8")
 
 def chunk_word_list(num_ranks):
     with open("words.txt", "r") as file:
@@ -28,10 +39,8 @@ def parse_shadow_file():
     return entries
 
 
-def is_matching_password(word, hash):
-    hash_bytes = hash.encode("utf-8")
-    word_bytes = word.encode("utf-8")
-    return bcrypt.checkpw(word_bytes, hash_bytes)
+def is_matching_password(word, hash_string):
+    return hmac.compare_digest(_crypt(word, hash_string), hash_string)
 
 
 def main():
